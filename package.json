@@ -1,0 +1,22 @@
+{
+  "name": "study-express-medowlark",
+  "version": "1.0.0",
+  "description": "my express study app",
+  "main": "meadowlark.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qus1225/study-express-medowlark.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qus1225/study-express-medowlark/issues"
+  },
+  "homepage": "https://github.com/qus1225/study-express-medowlark#readme",
+  "dependencies": {
+    "express": "^4.15.4"
+  }
+}
