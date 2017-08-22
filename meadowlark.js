@@ -10,26 +10,25 @@ var fortunes = [
 	"You will have a pleasant surprise.",
 	"Whenever possible, keep it simple."
 ];
+// Set Static Middleware
+app.use(express.static(__dirname + '/public'));
+
+app.set('port', process.env.PORT || 3000);
 
 // Set Handlebar ViewEngine
 var handlebars = require('express-handlebars').create({ defaultLayout: 'main'});
 app.engine('hbs', handlebars.engine);
 app.set('view engine', 'hbs');
 
-app.set('port', process.env.PORT || 3000);
-
-// Set Static Middleware
-app.use(express.static(__dirname + '/public'));
-
 // Routes
-app.get('/', function (req, res) {
-  res.render('home');
-});
-
-app.get('/about', function (req, res) {
-  var randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-  res.render('about', {fortune: randomFortune});
-});
+app
+  .get('/', function (req, res) {
+    res.render('home');
+  })
+  .get('/about', function (req, res) {
+    var randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+    res.render('about', {fortune: randomFortune});
+  });
 
 // custom 404 page
 app.use(function (req, res) {
