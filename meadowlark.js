@@ -30,7 +30,14 @@ app
       fortune: fortune.getFortune(),
       pageTestScript: '/qa/tests-about.js'
     });
-  });
+  })
+  .get('/tours/hood-river', function (req, res) {
+    res.render('tours/hood-river');
+  })
+  .get('/tours/request-group-rate', function (req, res) {
+    res.render('tours/request-group-rate');
+  })
+;
 
 // custom 404 page
 app.use(function (req, res) {
