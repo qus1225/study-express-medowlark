@@ -14,6 +14,12 @@ var handlebars = require('express-handlebars').create({ defaultLayout: 'main'});
 app.engine('hbs', handlebars.engine);
 app.set('view engine', 'hbs');
 
+// Set Page Test
+app.use(function (req, res, next) {
+  res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
+  next();
+});
+
 // Routes
 app
   .get('/', function (req, res) {
