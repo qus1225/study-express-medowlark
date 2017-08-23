@@ -12,7 +12,17 @@ app.use(require('body-parser').urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 3000);
 
 // Set Handlebar ViewEngine
-var handlebars = require('express-handlebars').create({ defaultLayout: 'main'});
+var handlebars = require('express-handlebars')
+  .create({ 
+    defaultLayout: 'main',
+    helpers: {
+      section: function (name, options) {
+        if(!this._sections) this._sections = {};
+        this._sections[name] = options.fn(this);
+        return null;
+      }
+    }
+  });
 app.engine('hbs', handlebars.engine);
 app.set('view engine', 'hbs');
 
@@ -48,7 +58,11 @@ app
     console.log('CSRF token (from hidden form field): ' + req.body._csrf);
     console.log('Name (from visible form field): ' + req.body.name);
     console.log('Email (from visible form field): ' + req.body.email);
-    res.redirect(303, '/thank-you');
+    if (req.xhr || req.accepts('json, html') === 'json') {
+      res.send({ success: true });
+    } else {
+      res.redirect(303, '/thank-you');
+    }
   })
   .get('/thank-you', function (req, res) {
     res.render('thankyou');
