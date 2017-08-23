@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/qus1225/study-express-medowlark#readme",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "chai": "^4.1.1",
     "express": "^4.15.4",
     "express-handlebars": "^3.0.0",
