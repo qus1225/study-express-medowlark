@@ -13,6 +13,12 @@ app.use(require('body-parser').urlencoded({ extended: true }));
 
 app.use(require('cookie-parser')(credentials.cookieSecret));
 
+app.use(require('express-session')({
+  resave: false,
+  saveUninitialized: false,
+  secret: credentials.cookieSecret
+}));
+
 app.set('port', process.env.PORT || 3000);
 
 // Set Handlebar ViewEngine
@@ -36,6 +42,13 @@ app.use(function (req, res, next) {
   next();
 });
 
+// Session Test
+app.use(function (req, res, next) {
+  res.locals.flash = req.session.flash;
+  // delete req.session.flash;
+  next();
+})
+
 // Routes
 app
   .get('/', function (req, res) {
@@ -55,6 +68,11 @@ app
     });
   })
   .get('/tours/hood-river', function (req, res) {
+    req.session.flash = {
+      type: 'danger',
+      intro: 'Validation error!',
+      message: 'The email address you entered was not valid'
+    };
     res.render('tours/hood-river');
   })
   .get('/tours/request-group-rate', function (req, res) {

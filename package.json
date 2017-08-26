@@ -22,6 +22,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.15.4",
     "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.5",
     "grunt": "^1.0.1",
     "grunt-cafe-mocha": "^0.1.13",
     "grunt-contrib-jshint": "^1.1.0",
