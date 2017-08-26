@@ -4,10 +4,14 @@ var app =  express();
 
 var fortune = require('./lib/fortune');
 
+var credentials = require('./credentials');
+
 // Set Static Middleware
 app.use(express.static(__dirname + '/public'));
 
 app.use(require('body-parser').urlencoded({ extended: true }));
+
+app.use(require('cookie-parser')(credentials.cookieSecret));
 
 app.set('port', process.env.PORT || 3000);
 
@@ -35,9 +39,16 @@ app.use(function (req, res, next) {
 // Routes
 app
   .get('/', function (req, res) {
+    // var monster = req.cookie.monster;
+    var signedMonster = req.signedCookies['signed_monster'];
+    // console.log('monster: '+monster);
+    console.log('signedMonster22: '+signedMonster);
     res.render('home');
   })
   .get('/about', function (req, res) {
+    res.clearCookie('signed_monster')
+    res.cookie('monster', 'nom nom');
+    res.cookie('signed_monster', 'sigened nom nom', { signed: true });
     res.render('about', {
       fortune: fortune.getFortune(),
       pageTestScript: '/qa/tests-about.js'
